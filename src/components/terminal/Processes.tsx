@@ -11,7 +11,7 @@ const terminal = new Terminal(init_terminal_id, true);
 
 export let Processes = [[init_terminal_id, <TerminalWindow key={init_terminal_id} terminal={terminal} />]];
 
-let state = null;
+export let state = null;
 
 export function setState (_state) {
     state = _state;
@@ -24,7 +24,7 @@ export function addProcess(id, process) {
 
 export function killProcess(id) {
     Processes.forEach(([_id, _process], _index) => {
-        if (_id === id) Processes.splice(_index, 1);
+        if (_id == id) Processes.splice(_index, 1);
     });
 
     state([...Processes])
