@@ -20,8 +20,6 @@ export default function TerminalWindow({terminal}) {
             setTimeout(() => {
                 inputRef.current.focus();
             }, 0);
-
-            console.log(terminal.history)
         }
 
         if (e.key === "ArrowUp") {
