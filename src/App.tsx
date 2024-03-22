@@ -23,6 +23,8 @@ function backgroundRandomizer() {
 
 const bg = "bg-gray-300"
 
+console.log("%c" + "Hey, wussup!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
+
 export default function App() {
     const [welcome, setWelcome] = useState(1);
     const [processes, setProcesses] = useState(Processes);
@@ -38,8 +40,8 @@ export default function App() {
             terminal.new();
         }
         
-        if (event.key === "-") {
-            if (processes.length > 1/*(processes[0][0] == 0 ? 1 : 0)*/) {
+        if (event.key === "Escape") {
+            if (processes[0] && processes.length > (processes[0][0] == 0 ? 1 : 0)) {
                 Processes.pop();
                 setProcesses([...Processes]);
             }
@@ -51,6 +53,10 @@ export default function App() {
 
         if (processes.length === 1 && event.type === "mouseup" && event.target.className.includes("w-3 h-3 rounded-full bg-red-500")) {
             setWelcome(2);
+
+            if(processes[0][0] == 0) {
+                setWelcome(0);
+            }
         }
 
         if (processes.length === 0) {
