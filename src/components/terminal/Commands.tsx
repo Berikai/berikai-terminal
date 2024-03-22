@@ -40,11 +40,22 @@ export default terminal => ({
             terminal.console.push(<TerminalText text={<span><strong>Soundcloud: </strong><a href="https://www.github.com/Berikai">[<span class="text-gray-400"> Verdant </span>]</a></span>} />);
         }
     },
-    portfolio: {
-        description: "View my portfolio",
+    card: {
+        description: "View my profile card",
         hidden: false,
         execute: () => {
-            <iframe src="https://berikai.dev" width="100%" height="100%"></iframe>
+            terminal.console.push(<TerminalText text="Opening berikai.github.io..." />);
+
+            const new_id = Math.random().toString(36).substring(7)
+            terminal.newProcess(new_id, <BrowserWindow id={new_id} key={new_id}>
+                <iframe src="https://berikai.github.io" width="100%" height="100%"></iframe>
+            </BrowserWindow>);
+        }
+    },
+    paradox: {
+        description: "Open the same site in a new window",
+        hidden: false,
+        execute: () => {
             terminal.console.push(<TerminalText text="Opening berikai.dev..." />);
 
             const new_id = Math.random().toString(36).substring(7)
