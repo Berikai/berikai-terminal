@@ -1,6 +1,6 @@
 import AbletonWindow from "../AbletonWindow";
 import BrowserWindow from "../BrowserWindow";
-import { Processes, killProcess } from "./Processes";
+import { Processes, killProcess, state } from "./Processes";
 import { TerminalText } from "./TerminalTexts";
 
 export default terminal => ({
@@ -54,7 +54,7 @@ export default terminal => ({
     },
     paradox: {
         description: "Open the same site in a new window",
-        hidden: false,
+        hidden: true,
         execute: () => {
             terminal.console.push(<TerminalText text="Opening berikai.dev..." />);
 
@@ -88,14 +88,14 @@ export default terminal => ({
         }
     },
     terminal: {
-        description: "Open a new terminal window ( + key)",
+        description: "Open a new terminal window",
         hidden: true,
         execute: () => {
             terminal.new();
         }
     },
     exit: {
-        description: "Exit the terminal ( - key)",
+        description: "Exit the terminal window",
         hidden: true,
         execute: () => {
             terminal.exit();
@@ -112,7 +112,31 @@ export default terminal => ({
         description: "Kill the process with the given ID",
         hidden: true,
         execute: (...args) => {
+            if (args[0][0] === "" || args[0][0] === undefined) {
+                terminal.console.push(<TerminalText text="Please provide a process ID." />);
+                return;
+            }
+
+            if(args[0][0] == 0) {
+                terminal.console.push(<TerminalText text="Cannot kill main terminal window." />);
+                return;
+            }
+
             killProcess(args[0][0]);
+        }
+    },  
+    killall: {
+        description: "Kill all the processes",
+        hidden: true,
+        execute: () => {
+            const process_ref = Processes.slice(0);
+            for (const [id, _] of process_ref) {
+                if (id != 0) {
+                    killProcess(id);
+                } else {
+                    terminal.console.push(<TerminalText text="Cannot kill main terminal window." />);
+                }
+            }
         }
     },
     list: {
