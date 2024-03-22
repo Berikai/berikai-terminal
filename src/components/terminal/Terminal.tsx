@@ -7,6 +7,7 @@ import TerminalWindow from "../TerminalWindow";
 export default function Terminal(id: any, init = false) {
     this.console = init ? [<TerminalText text="Type 'help' to get started." />] : [];
     this.history = [""];
+    this.history.cursor = 0;
     this.commands = Commands(this)
     this.id = id;
 }
@@ -46,6 +47,7 @@ Terminal.prototype.clear = function() {
 
 Terminal.prototype.execute = function(command: string) {
     this.history.push(command);
+    this.history.cursor = this.history.length;
     const [cmd, ...args] = command.split(" ");
     if (this.commands[cmd]) {
         this.commands[cmd].execute(args);
