@@ -191,7 +191,7 @@ export default terminal => ({
         description: "Open this project in VS Code",
         hidden: true,
         execute: () => {
-            window.location.href = ("https://github1s.com/Berikai/berikai.dev");
+            window.location.href = ("https://github1s.com/Berikai/terminal-emulator-sandbox");
         }
     },
     reboot: {
