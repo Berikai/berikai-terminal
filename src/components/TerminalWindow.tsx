@@ -18,18 +18,22 @@ export default function TerminalWindow({terminal}) {
             setTermConsole([...terminal.console]);
 
             setTimeout(() => {
-                inputRef.current.focus();
+                if (inputRef && inputRef.current) {
+                    inputRef.current.focus();
+                }
             }, 0);
         }
 
         if (e.key === "ArrowUp") {
             const input = e.target as HTMLInputElement;
-            input.value = terminal.history[input.value == "" || terminal.history.indexOf(input.value) == -1 ? terminal.history.length - 1 : terminal.history.indexOf(input.value) - 1];
+            terminal.history.cursor = Math.max(0, terminal.history.cursor - 1);
+            input.value = terminal.history[terminal.history.cursor];
         }
 
         if (e.key === "ArrowDown") {
             const input = e.target as HTMLInputElement;
-            input.value = terminal.history[terminal.history.indexOf(input.value) == -1 ? 0 : (terminal.history.indexOf(input.value) + 1 < terminal.history.length ? terminal.history.indexOf(input.value) + 1 : 0)]; // Hardly understandable line
+            terminal.history.cursor = Math.min(terminal.history.length - 1, terminal.history.cursor + 1);
+            input.value = terminal.history[terminal.history.cursor];
         }
     }
 
