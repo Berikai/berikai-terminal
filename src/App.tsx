@@ -21,14 +21,14 @@ function backgroundRandomizer() {
     }
 }
 
-const bg = "bg-gray-300"
+const bg = "bg-gray-200"
 
 console.log("%c" + "Hey, wussup!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
 
 export default function App() {
     const [welcome, setWelcome] = useState(1);
     const [processes, setProcesses] = useState(Processes);
-    const [background, setBackground] = useState("bg-gray-100");
+    const [background, setBackground] = useState("bg-gray-200");
     setState(setProcesses)
 
     setBackground(bg);
