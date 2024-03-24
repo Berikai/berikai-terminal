@@ -11,6 +11,7 @@ export default function Terminal(id: any, init = false) {
     this.history.cursor = 0
     this.commands = Commands(this)
     this.id = id
+    this.continue = false
 }
 
 Terminal.prototype.newProcess = function(id: string, window: JSX.Element) {
@@ -47,6 +48,7 @@ Terminal.prototype.clear = function() {
 }
 
 Terminal.prototype.execute = function(command: string) {
+    if (command == "") return
     this.history.push(command)
     this.history.cursor = this.history.length
     const [cmd, ...args] = command.split(" ")

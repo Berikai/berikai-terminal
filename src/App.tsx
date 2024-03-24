@@ -3,8 +3,7 @@ import Welcome from "./components/Welcome"
 import { Processes } from "./components/terminal/Processes"
 import { setState } from "./components/terminal/Processes"
 import Terminal from "./components/terminal/Terminal"
-
-const bg = "bg-gray-200"
+import { setBgState } from "./components/terminal/commands/background"
 
 console.log("%c" + "Hey, wussup!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;")
 
@@ -13,8 +12,7 @@ export default function App() {
     const [processes, setProcesses] = useState(Processes)
     const [background, setBackground] = useState("bg-gray-200")
     setState(setProcesses)
-
-    setBackground(bg)
+    setBgState(setBackground)
 
     const terminal = new Terminal(0)
 
@@ -25,7 +23,11 @@ export default function App() {
         
         if (event.key === "Escape") {
             if (processes[0] && processes.length > (processes[0][0] == 0 ? 1 : 0)) {
-                Processes.pop()
+                if (processes[processes.length - 1][0] != 0) { 
+                    Processes.pop()
+                } else {
+                    Processes.splice(processes.length - 2, 1)
+                }
                 setProcesses([...Processes])
             }
         }
@@ -34,11 +36,11 @@ export default function App() {
             setWelcome(0)
         }
 
-        if (event.type === "mouseup" && event.target.className.includes("w-3 h-3 rounded-full bg-green-500")) {
+        if (event.type === "mouseup" && event.target.className.includes("w-3 h-3 rounded-full bg-green-")) {
             setWelcome(0)
         }
 
-        if (processes.length === 1 && event.type === "mouseup" && event.target.className.includes("w-3 h-3 rounded-full bg-red-500")) {
+        if (processes.length === 1 && event.type === "mouseup" && event.target.className.includes("w-3 h-3 rounded-full bg-red-")) {
             setWelcome(2)
 
             if(processes[0][0] == 0) {

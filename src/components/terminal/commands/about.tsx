@@ -1,11 +1,29 @@
+import { useState } from "preact/hooks"
+import TypeWriter from "../../scripts/TypeWriter"
 import { TerminalText } from "../TerminalTexts"
+
+let state = null
+export const setState = (_state) => {
+    state = _state
+} 
 
 export default terminal => ({
     description: "About me",
     hidden: false,
     execute: () => {
-        terminal.console.push(<TerminalText text="I am a software enthusiast and music producer." />)
-        terminal.console.push(<TerminalText text={<span><strong>Github: </strong><a href="https://www.github.com/Berikai">[<span class="text-gray-400"> Berikai </span>]</a></span>} />)
-        terminal.console.push(<TerminalText text={<span><strong>Soundcloud: </strong><a href="https://soundcloud.com/verdantbass">[<span class="text-gray-400"> Verdant </span>]</a></span>} />)
+        terminal.continue = true
+        state(terminal.continue)
+        const texts = [
+            "Hello! I'm Berikai, also known as Verdant.",
+            "I'm a software enthusiast and a bass music producer.",
+            "Type 'socials' to reach me out!"
+        ]
+        terminal.console.push(<TerminalText text={<TypeWriter text={texts[0]} delay={25}/>} />)
+        terminal.console.push(<TerminalText text={<TypeWriter text={texts[1]} delay={25} init_delay={(texts[0].length * 25 + 1000)}/>} />)
+        terminal.console.push(<TerminalText text={<TypeWriter text={texts[2]} delay={25} init_delay={(texts[0].length * 25 + 1000) + (texts[1].length * 25 + 1000)}/>} />)
+        setTimeout(() => {
+            terminal.continue = false
+            state(terminal.continue)
+        }, (texts[0].length * 25 + 1000) + (texts[1].length * 25 + 1000) + (texts[2].length * 25 + 1000))
     }
 })
