@@ -39,7 +39,8 @@ export default function Window({onClose = () => {}, onClick = () => {}, children
     const [greenHovered, setGreenHovered] = useState(false)
     
     return (
-       <div ref={ref} class={`${fullscreen ? `absolute flex flex-col z-[1000] top-0 left-0 h-full w-full` : `resize flex flex-col m-10 h-${height} w-${weight} max-w-fit md:max-w-full`} rounded-lg shadow-lg bg-gray-900 overflow-hidden min-h-64 min-w-96`}>
+      // resize flex flex-col m-10 h-64 w-96 rounded-lg shadow-lg bg-gray-900 overflow-hidden min-h-64 min-w-96
+       <div ref={ref} class={`flex flex-col ${fullscreen ? `absolute z-[1000] top-0 left-0 h-full w-full` : `resize m-10 max-w-fit md:max-w-full`} h-${height} w-${weight} rounded-lg shadow-lg bg-gray-900 overflow-hidden min-h-64 min-w-96`}>
            <div class="flex items-center justify-between px-4 py-2 bg-gray-800">
                 <div class="flex items-center space-x-2">
                     <div class={`w-3 h-3 rounded-full ${redHovered ? "bg-red-600" : "bg-red-500"}`} onClick={onClose} onMouseEnter={() => setRedHovered(true)} onMouseLeave={() => setRedHovered(false)}></div>
