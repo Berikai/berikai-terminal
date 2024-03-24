@@ -1,78 +1,65 @@
-import { useEffect, useState, useCallback } from "preact/hooks";
-import Welcome from "./components/Welcome";
-import { Processes } from "./components/terminal/Processes";
-import { setState } from "./components/terminal/Processes";
-import Terminal from "./components/terminal/Terminal";
-
-function backgroundRandomizer() {
-    const number = Math.floor(Math.random() * 4); // 0, 1, 2, 3 (and 4 if the value is 5)
-
-    switch(number) {
-        case 0:
-            return "bg-violet-500";
-        case 1:
-            return "bg-cyan-500";
-        case 2:
-            return "bg-green-400";
-        case 3:
-            return "bg-orange-400";
-        case 4:
-            return "bg-gray-100";
-    }
-}
+import { useEffect, useState, useCallback } from "preact/hooks"
+import Welcome from "./components/Welcome"
+import { Processes } from "./components/terminal/Processes"
+import { setState } from "./components/terminal/Processes"
+import Terminal from "./components/terminal/Terminal"
 
 const bg = "bg-gray-200"
 
-console.log("%c" + "Hey, wussup!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
+console.log("%c" + "Hey, wussup!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;")
 
 export default function App() {
-    const [welcome, setWelcome] = useState(1);
-    const [processes, setProcesses] = useState(Processes);
-    const [background, setBackground] = useState("bg-gray-200");
+    const [welcome, setWelcome] = useState(1)
+    const [processes, setProcesses] = useState(Processes)
+    const [background, setBackground] = useState("bg-gray-200")
     setState(setProcesses)
 
-    setBackground(bg);
+    setBackground(bg)
 
-    const terminal = new Terminal(0);
+    const terminal = new Terminal(0)
 
     const keyFunction = useCallback((event) => {
         if (event.key === "+") {
-            terminal.new();
+            terminal.new()
         }
         
         if (event.key === "Escape") {
             if (processes[0] && processes.length > (processes[0][0] == 0 ? 1 : 0)) {
-                Processes.pop();
-                setProcesses([...Processes]);
+                Processes.pop()
+                setProcesses([...Processes])
             }
         }
 
         if (event.key && welcome) {
-            setWelcome(0);
+            setWelcome(0)
+        }
+
+        if (event.type === "mouseup" && event.target.className.includes("w-3 h-3 rounded-full bg-green-500")) {
+            setWelcome(0)
         }
 
         if (processes.length === 1 && event.type === "mouseup" && event.target.className.includes("w-3 h-3 rounded-full bg-red-500")) {
-            setWelcome(2);
+            setWelcome(2)
 
             if(processes[0][0] == 0) {
-                setWelcome(0);
+                setWelcome(0)
             }
         }
 
         if (processes.length === 0) {
-            setWelcome(2);
+            setWelcome(2)
         }
-    }, []);
+    }, [])
     
     useEffect(() => {
-        document.addEventListener("keydown", keyFunction, false);
-        document.addEventListener("mouseup", keyFunction, false);
+        document.addEventListener("keydown", keyFunction, false)
+        document.addEventListener("mouseup", keyFunction, false)
     
         return () => {
-            document.removeEventListener("keydown", keyFunction, false);
-            document.removeEventListener("mouseup", keyFunction, false);
-        };
-    }, [keyFunction, processes]);
+            document.removeEventListener("keydown", keyFunction, false)
+            document.removeEventListener("mouseup", keyFunction, false)
+        }
+    }, [keyFunction, processes])
 
     return (
             <div class={background + " min-h-screen"}>
@@ -90,5 +77,5 @@ export default function App() {
                     </div>
                 </div>
             </div>
-    );
+    )
 }

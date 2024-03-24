@@ -1,9 +1,17 @@
-import Window from "./Window";
-import { killProcess } from "./terminal/Processes";
+import Window from "./Window"
+import { killProcess } from "./terminal/Processes"
 
-export default function AbletonWindow({id}) {
+export default function AbletonWindow({id, weight = null, height = null, full = false}) {
+    if (weight == null) {
+        weight = 96
+    }
+
+    if (height == null) {
+        height = 64
+    }
+    
     return (
-        <Window onClose={() => killProcess(id)}>
+        <Window full={full} weight={weight} height={height} onClose={() => killProcess(id)}>
             <div class="flex flex-col items-center justify-content">
                 <div class="flex flex-row bg-slate-800 p-1 m-1 items-center space-x-2">
                     <div class="w-3 h-3 bg-orange-400"></div>
@@ -28,5 +36,5 @@ export default function AbletonWindow({id}) {
                 </div>
             </div>
         </Window>
-    );
-};
+    )
+}
