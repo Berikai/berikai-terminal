@@ -33,19 +33,15 @@ export default function Window({onClose = () => {}, onClick = () => {}, children
         setFullscreen(true)
       }
     }
-
-    const [redHovered, setRedHovered] = useState(false)
-    const [yellowHovered, setYellowHovered] = useState(false)
-    const [greenHovered, setGreenHovered] = useState(false)
     
     return (
       // resize flex flex-col m-10 h-64 w-96 rounded-lg shadow-lg bg-gray-900 overflow-hidden min-h-64 min-w-96
        <div ref={ref} class={`flex flex-col ${fullscreen ? `absolute z-[1000] top-0 left-0 h-full w-full` : `resize m-10 max-w-fit md:max-w-full`} h-${height} w-${weight} rounded-lg shadow-lg bg-gray-900 overflow-hidden min-h-64 min-w-96`}>
            <div class="flex items-center justify-between px-4 py-2 bg-gray-800">
                 <div class="flex items-center space-x-2">
-                    <div class={`w-3 h-3 rounded-full ${redHovered ? "bg-red-600" : "bg-red-500"}`} onClick={onClose} onMouseEnter={() => setRedHovered(true)} onMouseLeave={() => setRedHovered(false)}></div>
-                    <div class={`w-3 h-3 rounded-full ${fullscreen ? "bg-gray-600": (yellowHovered ? "bg-yellow-500" : "bg-yellow-400")}`} onMouseEnter={() => setYellowHovered(true)} onMouseLeave={() => setYellowHovered(false)}></div>
-                    <div class={`w-3 h-3 rounded-full ${greenHovered ? "bg-green-600" : "bg-green-500"}`} onClick={onFullscreen} onMouseEnter={() => setGreenHovered(true)} onMouseLeave={() => setGreenHovered(false)}></div>
+                    <div class={`w-3 h-3 rounded-full bg-red-500 hover:bg-red-600`} onClick={onClose}></div>
+                    <div class={`w-3 h-3 rounded-full ${fullscreen ? "bg-gray-600": "bg-yellow-400 hover:bg-yellow-500"}`}></div>
+                    <div class={`w-3 h-3 rounded-full bg-green-500 hover:bg-green-600`} onClick={onFullscreen}></div>
                 </div>
                 {/* @ts-ignore */}
                 <span class= "font-bold text-sm text-gray-200 opacity-10">build {BUILD_TIMESTAMP}</span>
