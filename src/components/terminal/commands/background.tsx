@@ -15,6 +15,8 @@ export const changeBg = (arg) => {
         bgState("bg-orange-400")
      }  else if (arg == "violet") {
         bgState("bg-violet-500") 
+     } else if (arg == "pink") {
+        bgState("bg-pink-400")
      } else if (arg == "default") {
         bgState("bg-gray-200")
      } else if (arg == "random") {
@@ -29,7 +31,7 @@ export default terminal => ({
     hidden: true,
     execute: (args) => {
         if (args.length === 0) {
-            terminal.console.push(<TerminalText text="Available arguments: default, random, blue, green, orange, violet" />)
+            terminal.console.push(<TerminalText text="Available arguments: default, random, blue, green, orange, violet, pink" />)
         } else {
             changeBg(args[0])
         }
