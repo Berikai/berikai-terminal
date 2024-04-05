@@ -12,6 +12,6 @@ export default defineConfig({
 		}),
 	],
 	define: {
-		BUILD_TIMESTAMP: new Date().toLocaleDateString().replaceAll('/', '').replaceAll('.', ''),
+		BUILD_TIMESTAMP: (new Date().getFullYear().toString()) + ('0' + new Date().getMonth().toString()).slice(-2) + ('0' + new Date().getDay().toString()).slice(-2),
 	 },
 })
