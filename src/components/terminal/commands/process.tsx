@@ -6,11 +6,17 @@ const commands = terminal => ({
         description: "Pick a process window to be the first in the stack",
         hidden: true,
         execute: (arg) => {
-            Processes.forEach((process, index) => {
-                if (process[0] == arg[0]) {
+            Processes.some((process, index) => {
+                let process_id = arg[0]
+
+                if (process_id === "" || process_id === undefined) {
+                    process_id = terminal.id
+                }
+
+                if (process[0] == process_id) {
                     if (index == 0) {
                         terminal.console.push(<TerminalText text="Process already at the top of the stack." />)
-                        return
+                        return true
                     }
     
                     Processes.splice(index, 1);
@@ -18,8 +24,9 @@ const commands = terminal => ({
                     getState([...Processes])
                     
                     terminal.console.push(<TerminalText text="Process moved to the top of the stack." />);
+                    return true
                 }
-            })
+            }) ? null : terminal.console.push(<TerminalText text="Process not found." />);
         }
     },
     list: {
@@ -113,7 +120,8 @@ export default terminal => ({
             if (commands(terminal)[command]) {
                 commands(terminal)[command].execute(args)
             } else {
-                terminal.console.push(<TerminalText text={`Command not found: ${command}. Type 'process help' to list available commands.`} />)
+                terminal.console.push(<TerminalText text={`Command not found: ${command}.`} />)
+                terminal.console.push(<TerminalText text={`Type 'process help' to list available commands.`} />)
             }
         }
     }
