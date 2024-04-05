@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'preact/hooks'
 
 export let scroll = 0
 
-export default function Window({onClose = () => {}, onClick = () => {}, children = null, weight = 96, height = 64, full = false}) {
+export default function Window({onClose = () => {}, onClick = () => {}, children = null, weight = 96, height = 64, full = false, id = null}) {
     const useChatScroll = () => {
       const ref = useRef<HTMLDivElement>()
       useEffect(() => {
@@ -46,7 +46,7 @@ export default function Window({onClose = () => {}, onClick = () => {}, children
                 {/* @ts-ignore */}
                 <span class= "font-bold text-sm text-gray-200 opacity-10">build {BUILD_TIMESTAMP}</span>
             </div>
-            <div class="flex-1 overflow-y-auto" onClick={onClick}>
+            <div id={id} class="flex-1 overflow-y-auto" onClick={onClick}>
                 {children}
             </div>
         </div>

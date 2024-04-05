@@ -1,8 +1,7 @@
-import { useState, useRef, useEffect } from "preact/hooks"
+import { useState, useRef } from "preact/hooks"
 import { TerminalSessionInput, TerminalSessionText } from "./terminal/TerminalTexts"
 import Window from "./Window"
 import { killProcess } from "./terminal/Processes"
-import { setState } from "./terminal/commands/about"
 
 export default function TerminalWindow({terminal, weight = null, height = null, full = false}) {
     if (weight == null) {
@@ -16,7 +15,7 @@ export default function TerminalWindow({terminal, weight = null, height = null, 
     const [termConsole, setTermConsole] = useState(terminal.console)
     const [termContinue, setTermContinue] = useState(terminal.continue)
 
-    setState(setTermContinue)
+    terminal.setContinueState(setTermContinue)
 
     const onTerminalInputSend = (e) => {
         if (e.key === "Enter") {
@@ -55,7 +54,7 @@ export default function TerminalWindow({terminal, weight = null, height = null, 
     const TerminalSession = () => <TerminalSessionInput input={<TerminalInput />}/>
 
     return (
-        <Window full={full} weight={weight} height={height} onClose={() => terminal.id == 0 ? alert("Cannot exit main terminal window.") :  killProcess(terminal.id)} onClick={() => inputRef.current.focus()}>
+        <Window id={terminal.id} full={full} weight={weight} height={height} onClose={() => terminal.id == 0 ? alert("Cannot exit main terminal window.") :  killProcess(terminal.id)} onClick={() => inputRef.current.focus()}>
             <div class="p-3">
                 {termConsole}
                 {termContinue ? "" : <TerminalSession />}

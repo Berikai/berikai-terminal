@@ -12,6 +12,8 @@ export default function Terminal(id: any, init = false) {
     this.commands = Commands(this)
     this.id = id
     this.continue = false
+    this.setContinue = () => {}
+    this.setContinueState = (value) => this.setContinue = value
 }
 
 Terminal.prototype.newProcess = function(id: string, window: JSX.Element) {
