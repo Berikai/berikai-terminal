@@ -22,6 +22,11 @@ export default function Window({onClose = () => {}, onClick = () => {}, children
       if(fullscreen) {
         setFullscreen(false)
         if (ref.current) ref.current.setAttribute("style", style)
+
+        if(document.getElementsByClassName("absolute z-[1000]").length > 1) {
+          return
+        }
+        
         document.body.style.overflow = ""
         window.scrollTo(0, scroll)
       } else {

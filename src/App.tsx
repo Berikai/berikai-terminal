@@ -4,6 +4,7 @@ import { Processes } from "./components/terminal/Processes"
 import { setState } from "./components/terminal/Processes"
 import Terminal from "./components/terminal/Terminal"
 import { setBgState } from "./components/terminal/commands/background"
+import { scroll } from "./components/Window"
 
 console.log("%c" + "Hey, wussup!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;")
 
@@ -28,7 +29,18 @@ export default function App() {
                 } else {
                     Processes.splice(processes.length - 2, 1)
                 }
+
                 setProcesses([...Processes])
+
+                // TODO: Do not use setTimeout
+                setTimeout(() => {
+                    if(document.body.style.overflow != "") {
+                        if(document.getElementsByClassName("absolute z-[1000]").length == 0) {
+                            document.body.style.overflow = ""
+                            window.scrollTo(0, scroll)
+                        }
+                    }
+                }, 10)
             }
         }
 

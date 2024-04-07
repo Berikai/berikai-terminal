@@ -32,8 +32,10 @@ export function killProcess(id) {
     })
 
     if(document.body.style.overflow != "") {
-        document.body.style.overflow = ""
-        window.scrollTo(0, scroll)
+        if(!(document.getElementsByClassName("absolute z-[1000]").length > 1)) {
+            document.body.style.overflow = ""
+            window.scrollTo(0, scroll)
+        }
     }
 
     getState([...Processes])
