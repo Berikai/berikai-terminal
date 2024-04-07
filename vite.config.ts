@@ -12,6 +12,6 @@ export default defineConfig({
 		}),
 	],
 	define: {
-		BUILD_TIMESTAMP: (new Date().getFullYear().toString()) + ('0' + new Date().getMonth().toString()).slice(-2) + ('0' + new Date().getDay().toString()).slice(-2),
+		BUILD_TIMESTAMP: (new Date().getFullYear().toString()) + ('0' + (new Date().getMonth() + 1).toString()).slice(-2) + ('0' + new Date().getDate().toString()).slice(-2),
 	 },
 })
