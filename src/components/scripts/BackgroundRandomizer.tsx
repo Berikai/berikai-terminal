@@ -26,6 +26,6 @@ export default function backgroundRandomizer() {
         case 3:
             return "bg-orange-400"
         case 4:
-            return "bg-gray-200"
+            return "bg-gray-100"
     }
 }

@@ -11,7 +11,7 @@ console.log("%c" + "Hey, wussup!", "color: #7289DA; -webkit-text-stroke: 2px bla
 export default function App() {
     const [welcome, setWelcome] = useState(1)
     const [processes, setProcesses] = useState(Processes)
-    const [background, setBackground] = useState("bg-gray-200")
+    const [background, setBackground] = useState("bg-gray-100")
     setState(setProcesses)
     setBgState(setBackground)
 

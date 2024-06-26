@@ -18,7 +18,7 @@ export const changeBg = (arg) => {
      } else if (arg == "pink") {
         bgState("bg-pink-400")
      } else if (arg == "default") {
-        bgState("bg-gray-200")
+        bgState("bg-gray-100")
      } else if (arg == "random") {
         bgState(backgroundRandomizer())
      } else {
