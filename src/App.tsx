@@ -89,7 +89,7 @@ export default function App() {
                             title="" 
                             description={["Press + key to open a new terminal"]}
                         /> : null}
-                    <div class="flex flex-col lg:flex-row flex-wrap items-center justify-center">
+                    <div class="flex flex-col lg:flex-row flex-wrap items-center justify-center z-10">
                         {processes.map(([_id, process]) => process)}
                     </div>
                 </div>
