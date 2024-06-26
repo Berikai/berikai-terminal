@@ -3,6 +3,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
+		"deploy": "gh-pages -d dist --cname berikai.dev",
 		"dev": "vite",
 		"build": "vite build",
 		"preview": "vite preview"
