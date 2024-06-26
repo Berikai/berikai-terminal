@@ -5,6 +5,7 @@ import { setState } from "./components/terminal/Processes"
 import Terminal from "./components/terminal/Terminal"
 import { setBgState } from "./components/terminal/commands/background"
 import { scroll } from "./components/Window"
+import Github from "./github-mark.svg"
 
 console.log("%c" + "Hey, wussup!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;")
 
@@ -78,14 +79,16 @@ export default function App() {
     return (
             <div class={background + " min-h-screen"}>
                 <div class="flex flex-col items-center justify-center min-h-screen">
-                    {welcome && welcome != 2 ? <Welcome 
-                        title="Hi, I'm Berikai" 
-                        description="Welcome to my terminal emulator sandbox"
-                    /> : null}
+                    <div class="absolute" style="margin-bottom:26rem;">
+                        {welcome && welcome != 2 ? <Welcome 
+                            title="Hi, I'm Berikai" 
+                            description="Welcome to my terminal emulator sandbox"
+                        /> : null}
+                    </div>
                     {welcome == 2 ? <Welcome 
-                        title="" 
-                        description="Press + key to open a new terminal."
-                    /> : null}
+                            title="" 
+                            description={["Press + key to open a new terminal"]}
+                        /> : null}
                     <div class="flex flex-col lg:flex-row flex-wrap items-center justify-center">
                         {processes.map(([_id, process]) => process)}
                     </div>
