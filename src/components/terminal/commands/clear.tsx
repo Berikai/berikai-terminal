@@ -1,6 +1,6 @@
 export default terminal => ({
     description: "Clear the console",
-    hidden: false,
+    hidden: true,
     execute: () => {
         terminal.clear()
     }

@@ -19,13 +19,13 @@ import sudo from "./commands/sudo"
 import _terminal from "./commands/terminal"
 
 export default terminal => ({
-    help: help(terminal), // Visible
+    help: help(terminal),
 
     // About commands
     about: about(terminal), // Visible
     card: card(terminal), // Visible
     music: music(terminal), // Visible
-    socials: socials(terminal),
+    socials: socials(terminal), // Visible
 
     // Window Applications
     code: code(terminal),
@@ -33,7 +33,7 @@ export default terminal => ({
     ableton: ableton(terminal),
 
     // Terminal commands
-    clear: clear(terminal), // Visible
+    clear: clear(terminal),
     exit: exit(terminal),
     terminal: _terminal(terminal),
     process: process(terminal), 
