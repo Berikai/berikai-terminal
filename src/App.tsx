@@ -65,12 +65,26 @@ export default function App() {
             setWelcome(2)
         }
     }, [])
+
+    const tapToCreateTerminal = useCallback((e) => {
+        terminal.new()
+        document.removeEventListener("mousedown", this, false)
+
+        if (e.type === "mousedown" && welcome) {
+            setWelcome(0)
+        }
+    }, [])
     
     useEffect(() => {
         document.addEventListener("keydown", keyFunction, false)
         document.addEventListener("mouseup", keyFunction, false)
+
+        if (processes.length === 0) {
+            document.addEventListener("mousedown", tapToCreateTerminal, false)
+        }
     
         return () => {
+            document.removeEventListener("mousedown", tapToCreateTerminal, false)
             document.removeEventListener("keydown", keyFunction, false)
             document.removeEventListener("mouseup", keyFunction, false)
         }
