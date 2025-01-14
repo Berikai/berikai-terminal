@@ -3,9 +3,9 @@ import { TerminalSessionInput, TerminalSessionText } from "./terminal/TerminalTe
 import Window from "./Window"
 import { killProcess } from "./terminal/Processes"
 
-export default function TerminalWindow({terminal, weight = null, height = null, full = false}) {
-    if (weight == null) {
-        weight = 96
+export default function TerminalWindow({terminal, width = null, height = null, full = false}) {
+    if (width == null) {
+        width = 96
     }
 
     if (height == null) {
@@ -54,7 +54,7 @@ export default function TerminalWindow({terminal, weight = null, height = null, 
     const TerminalSession = () => <TerminalSessionInput input={<TerminalInput />}/>
 
     return (
-        <Window id={terminal.id} full={full} weight={weight} height={height} onClose={() => terminal.id == 0 ? alert("Cannot exit main terminal window.") :  killProcess(terminal.id)} onClick={() => inputRef.current.focus()}>
+        <Window id={terminal.id} full={full} width={width} height={height} onClose={() => terminal.id == 0 ? alert("Cannot exit main terminal window.") :  killProcess(terminal.id)} onClick={() => inputRef.current.focus()}>
             <div class="p-3">
                 {termConsole}
                 {termContinue ? "" : <TerminalSession />}
