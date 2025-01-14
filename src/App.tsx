@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "preact/hooks"
+import { createContext } from "preact"
 import Welcome from "./components/Welcome"
 import { Processes } from "./components/terminal/Processes"
 import { setState } from "./components/terminal/Processes"
@@ -9,12 +10,16 @@ import Github from "./github-mark.svg"
 
 console.log("%c" + "Hey, wussup!", "color: #7289DA; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;")
 
+export const GlobalStateContext = createContext({ Zglobal: 0, setZglobal: (x) => {} })
+
 export default function App() {
     const [welcome, setWelcome] = useState(1)
     const [processes, setProcesses] = useState(Processes)
     const [background, setBackground] = useState("bg-gray-100")
     setState(setProcesses)
     setBgState(setBackground)
+
+    const [Zglobal, setZglobal] = useState(1)
 
     const terminal = new Terminal(0)
 
@@ -76,6 +81,8 @@ export default function App() {
     }, [])
     
     useEffect(() => {
+        document.getElementsByTagName("body")[0].className = background
+
         document.addEventListener("keydown", keyFunction, false)
         document.addEventListener("mouseup", keyFunction, false)
 
@@ -88,9 +95,10 @@ export default function App() {
             document.removeEventListener("keydown", keyFunction, false)
             document.removeEventListener("mouseup", keyFunction, false)
         }
-    }, [keyFunction, processes])
+    }, [keyFunction, processes, background])
 
     return (
+        <GlobalStateContext.Provider value={{ Zglobal, setZglobal }}>
             <div class={background + " min-h-screen"}>
                 <div class="flex flex-col items-center justify-center min-h-screen">
                     <div class="absolute" style="margin-bottom:26rem;">
@@ -108,5 +116,6 @@ export default function App() {
                     </div>
                 </div>
             </div>
+        </GlobalStateContext.Provider>
     )
 }
