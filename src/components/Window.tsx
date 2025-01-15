@@ -55,19 +55,35 @@ export default function Window({onClose = () => {}, onClick = () => {}, children
     const rectYref = useRef(0)
     const [dragging, setDragging] = useState(false)
     const [dragged, setDragged] = useState(false)
+    const [screenFloatable, setScreenFloatable] = useState(false)
 
     const onMouseUpdate = (e: MouseEvent) => {
       if (ref.current) {
         /* 2.5rem + 0.5rem (48px) margin */
         setX(e.pageX - 40 - (Xref.current - rectXref.current))
         setY(e.pageY - 40 - (Yref.current - rectYref.current))
+        setScreenFloatable(window.innerWidth > 1023)
       }
     }
 
+    const onScreenResize = () => {
+      if (window.innerWidth <= 1023) {
+        setX(0)
+        setY(0)
+        setXstate(0)
+        setYstate(0)
+        setDragging(false)
+        setDragged(false)
+      }
+      setScreenFloatable(window.innerWidth > 1023)
+    }
+
     useEffect(() => {
+      window.addEventListener('resize', onScreenResize)
       ref.current.addEventListener('mousemove', onMouseUpdate)
 
       return () => {
+        window.removeEventListener('resize', onScreenResize)
         ref.current.removeEventListener('mousemove', onMouseUpdate)
       }
     }, [])
@@ -75,10 +91,13 @@ export default function Window({onClose = () => {}, onClick = () => {}, children
     return (
         // resize flex flex-col m-10 h-64 w-96 rounded-lg shadow-lg bg-gray-900 overflow-hidden min-h-64 min-w-96
        <div ref={ref} 
-       style={`position: ${(dragging || dragged) ? `absolute; top: ${dragging ? Y : Ystate}px; left: ${dragging ? X : Xstate}px; z-index: ${Z};` : (!fullscreen ? "position:relative;" : "")}` + `width: ${ref.current?.style.width}; height: ${ref.current?.style.height};`} 
-       class={`flex flex-col ${fullscreen ? `absolute z-[1000] top-0 left-0 h-full w-full` : `resize m-2 sm:m-10 max-w-fit md:max-w-full`} h-${height} w-${width} rounded-lg ${dragging || dragged ? `shadow-2xl border-solid border-2 border-blue-600 ` : `shadow-lg`} bg-gray-900 overflow-hidden min-h-64 min-w-96`}>
+       style={`position: ${(dragging || dragged) && screenFloatable ? `absolute; top: ${dragging ? Y : Ystate}px; left: ${dragging ? X : Xstate}px; z-index: ${Z};` : (!fullscreen ? "position:relative;" : "")}` + `width: ${ref.current?.style.width}; height: ${ref.current?.style.height};`} 
+       class={`flex flex-col ${fullscreen ? `absolute z-[1000] top-0 left-0 h-full w-full` : `resize m-2 sm:m-10 max-w-fit md:max-w-full`} h-${height} w-${width} rounded-lg ${(dragging || dragged) && screenFloatable ? `shadow-2xl border-solid border-2 border-blue-600 ` : `shadow-lg`} bg-gray-900 overflow-hidden min-h-64 min-w-96`}>
            <div class="flex items-center justify-between px-4 py-2 bg-gray-800"
                     onMouseDown={(e) => {
+                        if(!screenFloatable) {
+                          return;
+                        }
                         if(!fullscreen) {
                           setDragging(true)
                           setDragged(false)
@@ -99,6 +118,10 @@ export default function Window({onClose = () => {}, onClick = () => {}, children
                         }
                       }} 
                     onMouseUp={() => {
+                      if(!screenFloatable) {
+                        return;
+                      }
+
                       if(!fullscreen) {
                         if(dragging) {
                           setXstate(X)
