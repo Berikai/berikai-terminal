@@ -19,6 +19,32 @@ export default function App() {
     setState(setProcesses)
     setBgState(setBackground)
 
+    const tips = [
+        "💡 Type 'code' to open this project in VSCode!",
+        "‍🎧 Let's party, type 'music'",
+        "💻 You can navigate bash history with ⬆️ and ⬇️ keys",
+        "👀 For system information, type 'neofetch'",
+        "🧹🗑️ Keep it clean, type 'clear'",
+        "🎀 Felt cute? Type 'background pink' ~<3",
+        "🗣️ Try running 'echo hello world'",
+        "🔌 Type 'poweroff' to pull the plug",
+        "🔄 Need a fresh start? Typing 'reboot' is easy",
+        "🔍 Want to explore furthermore? Type 'help -a' for all commands",
+        "🤔 Did you know that you can float windows? Try it out!",
+        "🪟 Windows are resizable! Drag the bottom right corner",
+        "🥴 I feel like I'm running out of tips...",
+        "🤯 Did you know that you can run multiple terminals at once?",
+        "♾️ I wonder what does 'paradox' do...",
+        "🐉 Make your terminal immortal, type 'process change-id 0'",
+        "🔥 Did you know that you can change the background color?",
+        "🎲 Type 'background random' to get a random background color",
+        "🔑 No need to use 'sudo', you're already root!",
+        "🤪 Luckily, you can't break anything here!",
+        "😏 You are not root enough to do 'rm -rf /', lol",
+        "🃏 I have a cool 'card', type it out!",
+    ]
+    const [tip, setTip] = useState(tips[Math.floor(Math.random() * tips.length)])
+
     const [Zglobal, setZglobal] = useState(1)
 
     const terminal = new Terminal(0)
@@ -101,10 +127,10 @@ export default function App() {
         <GlobalStateContext.Provider value={{ Zglobal, setZglobal }}>
             <div class={background + " min-h-screen"}>
                 <div class="flex flex-col items-center justify-center min-h-screen">
-                    <div class="absolute" style="margin-bottom:26rem;">
+                    <div class="absolute" style="margin-bottom:25rem;">
                         {welcome && welcome != 2 ? <Welcome 
                             title="Hi, I'm Berikai" 
-                            description="Welcome to my terminal emulator sandbox"
+                            description={["Welcome to my terminal emulator sandbox", <text class="text-sm text-gray-500">{tip}</text>]}
                         /> : null}
                     </div>
                     {welcome == 2 ? <Welcome 
