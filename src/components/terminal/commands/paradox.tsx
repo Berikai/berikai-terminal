@@ -6,10 +6,10 @@ export default terminal => ({
     description: "Open the same site in a new window",
     hidden: true,
     execute: () => {
-        terminal.console.push(<TerminalText text="Opening berikai.dev..." />)
+        terminal.console.push(<TerminalText text="Opening console.berikai.dev..." />)
 
         const new_id = GenerateID()
-        const new_process = <BrowserWindow id={new_id} key={new_id}><iframe src="https://berikai.dev" width="100%" height="100%"></iframe></BrowserWindow>
+        const new_process = <BrowserWindow id={new_id} key={new_id}><iframe src="https://console.berikai.dev" width="100%" height="100%"></iframe></BrowserWindow>
         terminal.newProcess(new_id, new_process)
     }
 })
